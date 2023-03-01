@@ -1,0 +1,251 @@
+{
+    "metadata": {
+        "version": "2.0"
+    },
+    "contentContainerWidth": "wide",
+    "content": [
+        {
+            "elementType": "divider",
+            "borderColor": "transparent"
+        },
+        {
+            "elementType": "toolbar",
+            "id": "button_triggers_event",
+            "hidden": false,
+            "left": [
+                {
+                    "elementType": "toolbarMenu",
+                    "items": [
+                        {
+                            "title": "Menu Category A"
+                        },
+                        {
+                            "title": "Menu Category B"
+                        },
+                        {
+                            "title": "Menu Category C"
+                        },
+                        {
+                            "title": "Menu Category D"
+                        }
+                    ]
+                }
+            ],
+            "right": [
+                {
+                    "elementType": "toolbarButton",
+                    "icon": "search",
+                    "iconPosition": "iconOnly",
+                    "title": "Search",
+                    "events": [
+                        {
+                            "eventName": "click",
+                            "action": "hide",
+                            "targetId": "button_triggers_event"
+                        },
+                        {
+                            "eventName": "click",
+                            "action": "show",
+                            "targetId": "toolbar_search"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "elementType": "container",
+            "id": "disclosure_icon",
+            "content": [
+                {
+                    "elementType": "collapsible",
+                    "disclosureIcon": "chevron",
+                    "title": "Chevron",
+                    "description": "The default disclosure icon when an icon is not specified",
+                    "content": [
+                        {
+                            "elementType": "calendarPicker",
+                            "id": "default"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "elementType": "container",
+            "id": "border",
+            "backgroundColor": "theme:nonfocal_background_color",
+            "padding": "medium",
+            "content": [
+                {
+                    "elementType": "container",
+                    "wrapperStyle": "focal",
+                    "borderStyle": "solid",
+                    "borderRadius": "xxloose",
+                    "padding": "medium",
+                    "content": [
+                        {
+                            "elementType": "blockHeading",
+                            "marginTop": "none",
+                            "heading": "Border",
+                            "headingFontSize": "1.5rem"
+                        },
+                        {
+                            "elementType": "html",
+                            "html": "Standard container, with border style set to solid and border radius set to xxloose. "
+                        },
+                        {
+                            "elementType": "eventList",
+                            "id": "overflow_menus",
+                            "showTopBorder": false,
+                            "showBottomBorder": false,
+                            "descriptionLineClamp": 2,
+                            "items": [
+                                {
+                                    "datetimePrimaryLine": "Mon",
+                                    "datetimeSecondaryLine": "Sep 20",
+                                    "dividerColor": "theme:focal_border_color",
+                                    "title": "No office booked",
+                                    "description": "8 in my Circle booked at 100CPD /  123",
+                                    "link": {
+                                        "relativePath": "./detail_none.json"
+                                    },
+                                    "accessoryButton": {
+                                        "elementType": "dropdown",
+                                        "screenReaderTitle": "Actions for this booking",
+                                        "toggleSize": "small",
+                                        "toggleActionStyle": "link",
+                                        "toggleBorderRadius": "full",
+                                        "accessoryIcon": "plus",
+                                        "showDisclosureIcon": false,
+                                        "items": [
+                                            {
+                                                "title": "Book my favorite desk 123-085",
+                                                "description": "100CPD / 123 / Operations",
+                                                "link": {
+                                                    "relativePath": "./index_confirmation.json"
+                                                }
+                                            },
+                                            {
+                                                "title": "Book my favorite desk 123-087",
+                                                "description": "100CPD / 123 / Operations",
+                                                "link": {
+                                                    "relativePath": "./index_confirmation.json"
+                                                }
+                                            },
+                                            {
+                                                "title": "Book my favorite desk 123-102",
+                                                "description": "100CPD / 123 / Flex",
+                                                "link": {
+                                                    "relativePath": "./index_confirmation.json"
+                                                }
+                                            },
+                                            {
+                                                "title": "Book my favorite desk XYZ123",
+                                                "description": "SJC",
+                                                "link": {
+                                                    "relativePath": "./index_confirmation.json"
+                                                }
+                                            },
+                                            {
+                                                "title": "Book elsewhere",
+                                                "link": {
+                                                    "relativePath": "./book-elsewhere.json"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "datetimePrimaryLine": "Tue",
+                                    "datetimeSecondaryLine": "Sep 21",
+                                    "dividerColor": "theme:focal_link_color",
+                                    "title": "100CPD, Floor 133<br/>Desk 133-17",
+                                    "description": "8 in my Circle booked nearby",
+                                    "link": {
+                                        "relativePath": "./detail_desk.json"
+                                    },
+                                    "accessoryButton": {
+                                        "elementType": "dropdown",
+                                        "screenReaderTitle": "Actions for this booking",
+                                        "toggleSize": "small",
+                                        "toggleActionStyle": "normal",
+                                        "toggleBorderColor": "transparent",
+                                        "accessoryIcon": "overflow",
+                                        "showDisclosureIcon": false,
+                                        "toggleTextColor": "theme:secondary_text_color",
+                                        "items": [
+                                            {
+                                                "title": "View and edit details",
+                                                "link": {
+                                                    "relativePath": "./detail_desk.json"
+                                                }
+                                            },
+                                            {
+                                                "title": "View on floorplan",
+                                                "link": {
+                                                    "module": {
+                                                        "id": "indoor_map"
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "title": "Cancel reservation",
+                                                "confirmationMessage": "Are you sure you want to cancel your booking for September 21?",
+                                                "link": {
+                                                    "relativePath": ""
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "datetimePrimaryLine": "Wed",
+                                    "datetimeSecondaryLine": "Sep 22",
+                                    "dividerColor": "theme:focal_link_color",
+                                    "title": "100CPD, Floor 135<br/>Desk 135-107",
+                                    "description": "8 in my Circle booked nearby",
+                                    "link": {
+                                        "relativePath": "./detail_desk.json"
+                                    },
+                                    "accessoryButton": {
+                                        "elementType": "dropdown",
+                                        "screenReaderTitle": "Actions for this booking",
+                                        "toggleSize": "small",
+                                        "toggleActionStyle": "normal",
+                                        "toggleBorderColor": "transparent",
+                                        "accessoryIcon": "overflow",
+                                        "showDisclosureIcon": false,
+                                        "toggleTextColor": "theme:secondary_text_color",
+                                        "items": [
+                                            {
+                                                "title": "View and edit details",
+                                                "link": {
+                                                    "relativePath": "./detail_desk.json"
+                                                }
+                                            },
+                                            {
+                                                "title": "View on floorplan",
+                                                "link": {
+                                                    "module": {
+                                                        "id": "indoor_map"
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "title": "Cancel reservation",
+                                                "confirmationMessage": "Are you sure you want to cancel your booking for September 21?",
+                                                "link": {
+                                                    "relativePath": ""
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
