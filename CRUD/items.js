@@ -36,46 +36,62 @@ router.post('/', function (req, res) {
         // create an object of new Item
         let newItem = {
             id: newId,
-            firstName:req.body.firstName,lastName:req.body.lastName, maidenName:req.body.maidenName,
-            age:req.body.age, gender:req.body.gender,
-            email:req.body.email, phone:req.body.phone,
-            username:req.body.username, password:req.body.password,
+            firstName:req.body.firstName,
+            lastName:req.body.lastName,
+            maidenName:req.body.maidenName,
+            age:req.body.age,
+            gender:req.body.gender,
+            email:req.body.email,
+            phone:req.body.phone,
+            username:req.body.username,
+            password:req.body.password,
             birthDate:req.body.birthDate,
             image:req.body.image,
             bloodGroup:req.body.bloodGroup,
-            height:req.body.height, weight:req.body.weight,
+            height:req.body.height,
+            weight:req.body.weight,
             eyeColor:req.body.eyeColor,
             hair: {
                 color:req.body.color,
                 type:req.body.type,
             },
-            "domain":"slashdot.org", "ip":"117.29.86.254",
-            "address":{"address":"1745 T Street Southeast","city":"Washington",
-                "coordinates":{"lat":38.867033,"lng":-76.979235},
-                "postalCode":"20020","state":"DC"},
-            "macAddress":"13:69:BA:56:A3:74",
-            "university":"Capitol University",
-            "bank":{"cardExpire":"06/22",
-                "cardNumber":"50380955204220685",
-                "cardType":"maestro",
-                "currency":"Peso","iban":"NO17 0695 2754 967"},
-            "company":{"address":{"address":"629 Debbie Drive",
-                    "city":"Nashville",
-                    "coordinates":{"lat":36.208114,"lng":-86.58621199999999},
-                    "postalCode":"37076","state":"TN"},
-                "department":"Marketing",
-                "name":"Blanda-O'Keefe",
-                "title":"Help Desk Operator"},
-            "ein":"20-9487066",
-            "ssn":"661-64-2976",
+            domain:req.body.domain,
+            ip:req.body.ip,
+            address:{
+                address:req.body.address,
+                city:req.body.city,
+                coordinates:{
+                    lat:req.body.lat, lng:req.body.lng},
+                postalCode:req.body.postalCode,
+                state:req.body.state},
+            macAddress:req.body.state,
+            university: req.body.university,
+            bank:{cardExpire:req.body.cardExpire,
+                cardNumber:req.body.cardNumber,
+                cardType: req.body.cardType,
+                currency: req.body.currency,
+                iban:req.body.currency},
+            company:{
+                address:{
+                    address:req.body.address,
+                    city:req.body.city,
+                    coordinates:{
+                        lat:req.body.city,
+                        lng:req.body.lng},
+                    postalCode:req.body.postalCode,
+                    state:req.body.state},
+                department:req.body.department,
+                name:req.body.name,
+                title:req.body.title},
+            ein:req.body.ein,
+            ssn:req.body.ssn,
             "userAgent":"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/12.0.702.0 Safari/534.24"
-
         };
 
         // push new item object to data array of items
         data.users.push(newItem);
-        // return with status 201, item created successfully
-        res.status(201).json(newItem);
+        // return with status 201 and the id of the newly created user data
+        res.status(201).json(newItem).send("New user created with id: "+ newId);
     }
 });
 
@@ -110,33 +126,37 @@ router.put('/:id', function (req, res) {
                 color:req.body.color,
                 type:req.body.type,
             },
-                "domain":"slashdot.org",
-                "ip":"117.29.86.254",
-                "address":{"address":"1745 T Street Southeast","city":"Washington",
-                    "coordinates":{
-                    "lat":38.867033,
-                        "lng":-76.979235},
-                    "postalCode":"20020",
-                    "state":"DC"},
-                "macAddress":"13:69:BA:56:A3:74",
-                "university":"Capitol University",
-                "bank":{"cardExpire":"06/22",
-                    "cardNumber":"50380955204220685",
-                    "cardType":"maestro",
-                    "currency":"Peso","iban":"NO17 0695 2754 967"},
-                "company":{
-                    "address":{
-                        "address":"629 Debbie Drive",
-                        "city":"Nashville",
-                        "coordinates":{"lat":36.208114,"lng":-86.58621199999999},
-                        "postalCode":"37076","state":"TN"},
-                    "department":"Marketing",
-                    "name":"Blanda-O'Keefe",
-                    "title":"Help Desk Operator"},
-                "ein":"20-9487066",
-                "ssn":"661-64-2976",
+            domain:req.body.domain,
+             ip:req.body.ip,
+                address:{
+                address:req.body.address,
+                    city:req.body.city,
+                    coordinates:{
+                    lat:req.body.lat, lng:req.body.lng},
+                    postalCode:req.body.postalCode,
+                    state:req.body.state},
+                macAddress:req.body.state,
+                 university: req.body.university,
+                bank:{cardExpire:req.body.cardExpire,
+                    cardNumber:req.body.cardNumber,
+                    cardType: req.body.cardType,
+                    currency: req.body.currency,
+                    iban:req.body.currency},
+                company:{
+                    address:{
+                        address:req.body.address,
+                        city:req.body.city,
+                        coordinates:{
+                            lat:req.body.city,
+                            lng:req.body.lng},
+                        postalCode:req.body.postalCode,
+                        state:req.body.state},
+                    department:req.body.department,
+                    name:req.body.name,
+                    title:req.body.title},
+                ein:req.body.ein,
+                ssn:req.body.ssn,
                 "userAgent":"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/12.0.702.0 Safari/534.24"
-
         };
 
         // find index of found object from array of data
