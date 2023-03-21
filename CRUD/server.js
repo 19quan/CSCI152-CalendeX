@@ -1,15 +1,12 @@
 // import required essentials
 const http = require('http');
 const express = require('express');
-const cors = require('cors');// import `items` from `routes` folder
 const itemsRouter = require('./items');
 
 // create new app
 const app = express();
 app.use(express.json());
 // use it before all route definitions
-
-app.use(cors({origin: 'http://localhost:8100'}));
 
 /* this '/items' URL will have two end-points:
 → localhost:3000/items/ (this returns array of objects)
@@ -19,7 +16,7 @@ app.use('/users', itemsRouter);
 
 // default URL to API
 app.use('/', function(req, res) {
-    res.send('node-ex-api works :-)');
+    res.send('API works!!! :D');
 });
 
 const server = http.createServer(app);
