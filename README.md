@@ -1,2 +1,2 @@
 # CSCI152-CalendeX
-A github repository for CSCI 152 CalendeX Project
+Run 'npm install googleapis@105 @google-cloud/local-auth@2.1.0 --save' for Node.js to install required libraries
