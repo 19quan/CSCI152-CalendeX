@@ -1,5 +1,5 @@
 const express = require('express');
-const Model = require('../models/model');
+const Model = require('../models/userModel');
 
 const router = express.Router()
 
@@ -16,8 +16,7 @@ router.get('/getAll', async (req, res) => {
     }
 });
 
-//mongo automatically generates objectids when using post
-//this retrieves data using mongo's id
+//retrieves user by student assigned ID
 router.get('/getbyID/:id', async (req, res) => {
     try{
         const data = await Model.findById(req.params.id);
@@ -46,7 +45,7 @@ router.patch('/update/:id', async (req, res) => {
 });
 
 //creates a new user with specified parameters
-router.post('/post/user', async (req, res) => {
+router.post('/post', async (req, res) => {
     const data = new Model({
         _id: req.body._id,
         firstName: req.body.firstName,
@@ -55,30 +54,8 @@ router.post('/post/user', async (req, res) => {
         gender: req.body.gender,
         email: req.body.email,
         seniority: req.body.seniority
-
     })
 
-    try {
-        const dataSave = await data.save();
-        res.status(200).json(dataSave);
-    }
-    catch (error) {
-        res.status(400).json({message: error.message})
-    }
-});
-
-//TODO: creates a new event with specified parameters
-router.post('/post/event', async (req, res) => {
-    const data = new Model({
-        _id: req.body._id,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        age: req.body.age,
-        gender: req.body.gender,
-        email: req.body.email,
-        seniority: req.body.seniority
-
-    })
     try {
         const dataSave = await data.save();
         res.status(200).json(dataSave);
@@ -93,9 +70,9 @@ router.delete('/delete/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const data = await Model.findByIdAndDelete(id);
-        res.send(`User (${data.firstName} ${data.lastName}) with ID:${id} has been deleted.`);
+        res.send(`User (${data.firstName} ${data.lastName}) with ID:${id} has been successfully deleted.`);
     }
     catch (error) {
-        res.status(400).json({ message: error.message});
+        res.status(400).json({message: error.message});
     }
 });

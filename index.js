@@ -2,7 +2,8 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
-const routes = require('./routes/routes');
+const userRoute = require('./routes/users');
+const eventRoute = require('./routes/events');
 const mongoString = process.env.DATABASE_URL;
 
 const PORT = 3000;
@@ -20,7 +21,8 @@ database.once('connected', () => {
 const app = express();
 
 app.use(express.json());
-app.use('/api', routes);
+app.use('/users', userRoute);
+app.use('/events', eventRoute);
 
 app.listen(PORT, () => {
     console.log(`Server running on localhost:${PORT}`);
