@@ -1,0 +1,10 @@
+{
+    "datetimePrimaryLine": "Wed",
+    "datetimeSecondaryLine": "Sep 22",
+    "dividerColor": "theme:focal_link_color",
+    "title": "100CPD, Floor 135<br/>Desk 135-107",
+    "description": "8 in my Circle booked nearby",
+    "link": {
+        "relativePath": "./detail_desk.json"
+    }
+}
