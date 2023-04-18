@@ -13,7 +13,7 @@ module.exports = router;
 router.get('/get', async (req, res) => {
     try{
 
-        const data = data2.content[1].content[0].content[2].items;
+        const data = data2.content[1].content[0].items;
         const event = await events.find();
         for(let i=0;i<Object.keys(event).length;i++)
         {
@@ -22,7 +22,7 @@ router.get('/get', async (req, res) => {
             data[i].datetimeSecondaryLine=event[i].startDate;
             data[i+1]=eventdata;
         }
-        data2.content[1].content[0].content[2].items=data;
+        data2.content[1].content[0].items=data;
         res.json(data2)
     }
     catch(error){

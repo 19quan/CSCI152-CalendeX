@@ -4,51 +4,34 @@
     },
     "contentContainerWidth": "wide",
     "content": [
+        
         {
             "elementType": "divider",
             "borderColor": "transparent"
         },
         {
             "elementType": "container",
-            "id": "border",
-            "backgroundColor": "theme:nonfocal_background_color",
+            "wrapperStyle": "focal",
+            "borderStyle": "solid",
+            "borderRadius": "xxloose",
             "padding": "medium",
             "content": [
                 {
-                    "elementType": "container",
-                    "wrapperStyle": "focal",
-                    "borderStyle": "solid",
-                    "borderRadius": "xxloose",
-                    "padding": "medium",
-                    "content": [
+                    "elementType": "eventList",
+                    "id": "overflow_menus",
+                    "showTopBorder": false,
+                    "showBottomBorder": false,
+                    "descriptionLineClamp": 2,
+                    "items": [
                         {
-                            "elementType": "blockHeading",
-                            "marginTop": "none",
-                            "heading": "Border",
-                            "headingFontSize": "1.5rem"
-                        },
-                        {
-                            "elementType": "html",
-                            "html": "Standard container, with border style set to solid and border radius set to xxloose. "
-                        },
-                        {
-                            "elementType": "eventList",
-                            "id": "overflow_menus",
-                            "showTopBorder": false,
-                            "showBottomBorder": false,
-                            "descriptionLineClamp": 2,
-                            "items": [
-                                {
-                                    "datetimePrimaryLine": "Mon",
-                                    "datetimeSecondaryLine": "Sep 20",
-                                    "dividerColor": "theme:focal_border_color",
-                                    "title": "No office booked",
-                                    "description": "8 in my Circle booked at 100CPD /  123",
-                                    "link": {
-                                        "relativePath": "./detail_none.json"
-                                    }
-                                }
-                            ]
+                            "datetimePrimaryLine": "Mon",
+                            "datetimeSecondaryLine": "Sep 20",
+                            "dividerColor": "theme:focal_border_color",
+                            "title": "No office booked",
+                            "description": "8 in my Circle booked at 100CPD /  123",
+                            "link": {
+                                "relativePath": "./detail_none.json"
+                            }
                         }
                     ]
                 }
