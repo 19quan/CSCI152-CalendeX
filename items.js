@@ -1,7 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const fs= require('fs');
-const data=JSON.parse(fs.readFileSync('CRUD/data.json','utf-8'));
+const data=JSON.parse(fs.readFileSync('data.json','utf-8'));
 
 
 router.get('/', function(req,res){
@@ -19,16 +19,17 @@ router.get('/:id',function (req, res){
     else{
         res.sendStatus(404);
     }
-    });
+});
 //posts information to a new user array
 router.post('/', function (req, res) {
+    console.log("I went to post data")
     // get the ids within the user array
     let itemIds = data.users.map(item => item.id);
 
     // create new id
     let newId = itemIds.length > 0 ? Math.max.apply(Math, itemIds) + 1 : 1;
 
-    if(Object.keys(req.body).length==0) //if there is no update data
+    if(Object.keys(req.body).length===0) //if there is no update data
     {
         res.status(400).send("Please input information to update");
     }
@@ -105,6 +106,8 @@ router.put('/:id', function (req, res) {
 
     // check if item found
     if (found) {
+        // find index of found object from array of data
+        let targetIndex = data.users.indexOf(found);
         let updated = {
             id: found.id,
             firstName:req.body.firstName,
@@ -127,41 +130,40 @@ router.put('/:id', function (req, res) {
                 type:req.body.type,
             },
             domain:req.body.domain,
-             ip:req.body.ip,
-                address:{
+            ip:req.body.ip,
+            address:{
                 address:req.body.address,
+                city:req.body.city,
+                coordinates:{
+                    lat:req.body.lat, lng:req.body.lng},
+                postalCode:req.body.postalCode,
+                state:req.body.state},
+            macAddress:req.body.state,
+            university: req.body.university,
+            bank:{cardExpire:req.body.cardExpire,
+                cardNumber:req.body.cardNumber,
+                cardType: req.body.cardType,
+                currency: req.body.currency,
+                iban:req.body.currency},
+            company:{
+                address:{
+                    address:req.body.address,
                     city:req.body.city,
                     coordinates:{
-                    lat:req.body.lat, lng:req.body.lng},
+                        lat:req.body.city,
+                        lng:req.body.lng},
                     postalCode:req.body.postalCode,
                     state:req.body.state},
-                macAddress:req.body.state,
-                 university: req.body.university,
-                bank:{cardExpire:req.body.cardExpire,
-                    cardNumber:req.body.cardNumber,
-                    cardType: req.body.cardType,
-                    currency: req.body.currency,
-                    iban:req.body.currency},
-                company:{
-                    address:{
-                        address:req.body.address,
-                        city:req.body.city,
-                        coordinates:{
-                            lat:req.body.city,
-                            lng:req.body.lng},
-                        postalCode:req.body.postalCode,
-                        state:req.body.state},
-                    department:req.body.department,
-                    name:req.body.name,
-                    title:req.body.title},
-                ein:req.body.ein,
-                ssn:req.body.ssn,
-                "userAgent":"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/12.0.702.0 Safari/534.24"
+                department:req.body.department,
+                name:req.body.name,
+                title:req.body.title},
+            ein:req.body.ein,
+            ssn:req.body.ssn,
+            "userAgent":"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/12.0.702.0 Safari/534.24"
         };
-
-        // find index of found object from array of data
-        let targetIndex = data.users.indexOf(found);
-
+        Object.keys(targetIndex).forEach((item) => {
+            updated[item]=targetIndex[item]
+        })
         // replace object from data list with `updated` object
         data.users.splice(targetIndex, 1, updated);
 

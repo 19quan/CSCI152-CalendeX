@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AJAX Update Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // define the AJAX function
+            function updatePage() {
+                $.ajax({
+                    url: 'http://localhost:3000/update', // URL of the server-side script
+                    type: 'GET', // HTTP method
+                    dataType: 'html', // expected data type
+                    success: function(data) {
+                        // update the page content with the response data
+                        $('#content').html(data);
+                    },
+                    error: function() {
+                        // handle errors
+                        alert('An error occurred while updating the page.');
+                    }
+                });
+            }
+            $("form").submit(function (event) {
+                const formData = {
+                    name: $("#name").val(),
+                };
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:3000/submit",
+                    data: formData,
+                    dataType: "json",
+                    encode: true,
+                    success:function(data, textStatus, jqXHR)
+                    {
+                        //data: return data from server
+                            let newdata = JSON.stringify(data);
+                            $('#updated').text(newdata);
+                            console.log(jqXHR.status);
+
+                        console.log(data);
+                    },
+                    error:function(data, textStatus, jqXHR)
+                        {
+                            $('#updated').text('Error: '+textStatus+' user not found');
+                        }
+                });
+                event.preventDefault();
+            });
+        });
+    </script>
+</head>
+<body>
+<h1>AJAX Update Example</h1>
+<div id="content">
+    <!-- initial content of the page -->
+    <p>Welcome to the AJAX update example.</p>
+    <p>Please input a first name to find a user in the database</p>
+    <form action="http://localhost:3000/submit" method="POST">
+        <div id="name-group" class="form-group">
+            <label for="name">Name</label>
+            <input
+                    type="text"
+                    class="form-control"
+                    id="name"
+                    name="name"
+                    placeholder="Full Name"
+            />
+        </div>
+
+        <button type="submit" class="btn btn-success">
+            Submit
+        </button>
+    </form>
+</div>
+<div id="updated">
+    <p>This should update</p>
+</div>
+</body>
+</html>
