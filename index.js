@@ -3,13 +3,15 @@ const path = require('path');
 const process = require('process');
 const {authenticate} = require('@google-cloud/local-auth');
 const {google} = require('googleapis');
+const { calendar } = require('googleapis/build/src/apis/calendar');
 
 // If modifying these scopes, delete token.json.
-const SCOPES = ['https://www.googleapis.com/auth/calendar.readonly'];
+const SCOPES = ['https://www.googleapis.com/auth/calendar']; 
 // The file token.json stores the user's access and refresh tokens, and is
 // created automatically when the authorization flow completes for the first
 // time.
-const TOKEN_PATH = path.join(process.cwd(), 'token.json');
+const TOKEN_PATH = path.join(process.cwd(), "token.json");
+console.log("token:" + TOKEN_PATH)
 const CREDENTIALS_PATH = path.join(process.cwd(), 'credentials.json');
 
 /**
@@ -65,6 +67,7 @@ async function authorize() {
   return client;
 }
 
+
 /**
  * Lists the next 10 events on the user's primary calendar.
  * @param {google.auth.OAuth2} auth An authorized OAuth2 client.
@@ -90,4 +93,68 @@ async function listEvents(auth) {
   });
 }
 
-authorize().then(listEvents).catch(console.error);
+// Refer to the Node.js quickstart on how to setup the environment:
+// https://developers.google.com/calendar/quickstart/node
+// Change the scope to 'https://www.googleapis.com/auth/calendar' and delete any
+// stored credentials.
+
+
+async function createEvent(auth){
+  const calendar = google.calendar({version: 'v3', auth});
+
+  // Refer to the Node.js quickstart on how to setup the environment:
+  // https://developers.google.com/calendar/quickstart/node
+  // Change the scope to 'https://www.googleapis.com/auth/calendar' and delete any
+  // stored credentials.
+
+  const event = {
+    'summary': 'Google I/O 2015',
+    'location': '800 Howard St., San Francisco, CA 94103',
+    'description': 'A chance to hear more about Google\'s developer products.',
+    'start': {
+      'dateTime': '2023-04-28T09:00:00-07:00',
+      'timeZone': 'America/Los_Angeles',
+    },
+    'end': {
+      'dateTime': '2023-04-28T17:00:00-07:00',
+      'timeZone': 'America/Los_Angeles',
+    },
+    'recurrence': [
+      'RRULE:FREQ=DAILY;COUNT=1'
+    ],
+    'attendees': [
+      {'email': 'lpage@example.com'},
+      {'email': 'sbrin@example.com'},
+    ],
+    'reminders': {
+      'useDefault': false,
+      'overrides': [
+        {'method': 'email', 'minutes': 24 * 60},
+        {'method': 'popup', 'minutes': 10},
+      ],
+    },
+  };
+  
+  calendar.events.insert({
+    auth: auth,
+    calendarId: 'c_b059ca978bb6dbb0c6071c2af2609a2f244a91a389d2fae1d41b4b737d6ba2a2@group.calendar.google.com',
+    resource: event,
+  }, function(err, event) {
+    if (err) {
+      console.log('There was an error contacting the Calendar service: ' + err);
+      return;
+    }
+    console.log('Event created: %s', event.data.htmlLink);
+  });
+
+}
+
+async function removeEvent(auth){
+  const calendar = google.calendar({version: 'v3', auth});
+
+  
+}
+
+//authorize().then(listEvents).catch(console.error);
+//authorize().then(createEvent).catch(console.error);
+authorize().then(removeEvent).catch(console.error);
