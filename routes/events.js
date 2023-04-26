@@ -48,11 +48,15 @@ router.patch('/update/:id', async (req, res) => {
 //creates a new event
 router.post('/post', async (req, res) => {
     const data = new Model({
+        datetimePrimaryLine: req.body.datetimePrimaryLine,
+        datetimeSecondaryLine: req.body.datetimeSecondaryLine,
+        dividerColor: req.body.dividerColor,
         title: req.body.title,
-        desc: req.body.desc,
+        description: req.body.description,
         startDate: req.body.startDate,
-        endDate: req.body.endDate
-    })
+        link: req.body.link
+    });
+
     try {
         const dataSave = await data.save();
         res.status(200).json(dataSave);

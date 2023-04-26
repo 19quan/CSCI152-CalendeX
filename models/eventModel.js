@@ -4,23 +4,29 @@ const weekfromNow = 7*24*60*60*1000 // 168 hours (7 days) calculation in millise
 
 //schema for events
 const eventSchema = new mongoose.Schema({
+    datetimePrimaryLine:String,
+    datetimeSecondaryLine: {
+        type: Date,
+        default: Date.now
+    },
+    dividerColor: {
+        type: String,
+        default: "theme:focal_link_color"
+    },
     title: {
         required: true,
         type: String
     },
-    desc: {
+    description: {
         required: false,
         type: String
     },
-    startDate: {
-        required: true,
-        type: Date,
-        default: Date.now
-    },
-    endDate: {
-        type: Date,
-        default: Date.now() + weekfromNow
+    link: {
+        relativePath: {
+            type: String,
+            default: "./detail.desk.json"
+        }
     }
-});
+}, {versionKey: false});
 
 module.exports = mongoose.model('Event', eventSchema);

@@ -13,17 +13,17 @@ module.exports = router;
 router.get('/get', async (req, res) => {
     try{
 
-        const data = data2.content[1].content[0].items;
+        //const data = data2.content[1].content[0].items;
+        var data = [];
         const event = await events.find();
-        for(let i=0;i<Object.keys(event).length;i++)
+
+        for(let i=0; i < Object.keys(event).length; i++)
         {
-            data[i].title=event[i].title;
-            data[i].description=event[i].desc;
-            data[i].datetimeSecondaryLine=event[i].startDate;
-            data[i+1]=eventdata;
+            data.push(event[i]);
         }
-        data2.content[1].content[0].items=data;
-        res.json(data2)
+        
+        data2.content[1].content[0].items = data;
+        res.json(data2);
     }
     catch(error){
         res.status(500).json({message: error.message})
