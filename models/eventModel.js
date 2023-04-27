@@ -1,13 +1,19 @@
 const mongoose = require('mongoose');
-
+const moment = require('moment-timezone');
+const PST = moment.tz("America/Los_Angeles");
+var time = PST.format("h:mm A");
+var date = PST.format("MMM-D-YYYY");
 const weekfromNow = 7*24*60*60*1000 // 168 hours (7 days) calculation in milliseconds.
 
 //schema for events
 const eventSchema = new mongoose.Schema({
-    datetimePrimaryLine:String,
+    datetimePrimaryLine: {
+        type: String,
+        default: date
+    },
     datetimeSecondaryLine: {
-        type: Date,
-        default: Date.now
+        type: String,
+        default: time
     },
     dividerColor: {
         type: String,

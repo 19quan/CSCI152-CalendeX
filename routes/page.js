@@ -12,7 +12,6 @@ module.exports = router;
 
 router.get('/get', async (req, res) => {
     try{
-
         //const data = data2.content[1].content[0].items;
         var data = [];
         const event = await events.find();
@@ -21,7 +20,26 @@ router.get('/get', async (req, res) => {
         {
             data.push(event[i]);
         }
-        
+
+        data2.content[1].content[0].items = data;
+        res.json(data2);
+    }
+    catch(error){
+        res.status(500).json({message: error.message})
+    }
+});
+
+router.get('/getbyDate/:date', async (req, res) => {
+    try{
+        //const data = data2.content[1].content[0].items;
+        var data = [];
+        const event = await events.find({datetimePrimaryLine: req.params.date});
+
+        for(let i=0; i < Object.keys(event).length; i++)
+        {
+            data.push(event[i]);
+        }
+
         data2.content[1].content[0].items = data;
         res.json(data2);
     }

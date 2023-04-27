@@ -5,6 +5,8 @@ const mongoose = require('mongoose');
 const userRoute = require('./routes/users');
 const eventRoute = require('./routes/events');
 const pageRoute = require('./routes/page');
+const moment = require('moment-timezone');
+const PST = moment.tz("America/Los_Angeles");
 const mongoString = process.env.DATABASE_URL;
 
 const PORT = 3000;
