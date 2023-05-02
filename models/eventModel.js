@@ -29,4 +29,10 @@ const eventSchema = new mongoose.Schema({
     }
 }, {versionKey: false});
 
+eventSchema.set('toJSON', {
+    virtuals: true,
+    versionKey:false,
+    transform: function (doc, ret) {   delete ret.id, delete ret._id  }
+});
+
 module.exports = mongoose.model('Event', eventSchema);
