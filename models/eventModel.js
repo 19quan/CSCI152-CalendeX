@@ -26,12 +26,6 @@ const eventSchema = new mongoose.Schema({
     description: {
         required: false,
         type: String
-    },
-    link: {
-        relativePath: {
-            type: String,
-            default: "./detail.desk.json"
-        }
     }
 }, {versionKey: false});
 
