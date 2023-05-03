@@ -3,7 +3,6 @@ const moment = require('moment-timezone');
 const PST = moment.tz("America/Los_Angeles");
 var time = PST.format("h:mm A");
 var date = PST.format("MMM-D-YYYY");
-const weekfromNow = 7*24*60*60*1000 // 168 hours (7 days) calculation in milliseconds.
 
 //schema for events
 const eventSchema = new mongoose.Schema({
@@ -14,6 +13,9 @@ const eventSchema = new mongoose.Schema({
     datetimeSecondaryLine: {
         type: String,
         default: time
+    },
+    endDate: {
+        type: String,
     },
     dividerColor: {
         type: String,
@@ -32,7 +34,7 @@ const eventSchema = new mongoose.Schema({
 eventSchema.set('toJSON', {
     virtuals: true,
     versionKey:false,
-    transform: function (doc, ret) {   delete ret.id, delete ret._id  }
+    transform: function (doc, ret) { delete ret.id, delete ret._id, delete endDate }
 });
 
 module.exports = mongoose.model('Event', eventSchema);
