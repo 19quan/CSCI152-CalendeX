@@ -55,6 +55,7 @@ router.get('/get', async(req, res) => {
                 if(event[i].datetimePrimaryLine == lambdapush[lambdalength - 1].date) {
                     data.push(event[i]);
                 }
+                await lambda.deleteMany({});
                 console.log('2'); //for debugging
             }
         }
