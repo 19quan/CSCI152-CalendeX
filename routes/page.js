@@ -1,4 +1,5 @@
 const express = require('express');
+const moment = require('moment');
 const Model = require('../models/pageModel');
 const events = require('../models/eventModel');
 const lambda = require('../models/lambdaModel');
@@ -13,25 +14,32 @@ module.exports = router;
 
 //TODO: Create a refresh button that gets the current date, then checks the
 //      end date, IF currentdate > enddate then it will delete the stored date
+//      IT WORKS, just needs to use End Dates rather than datetimePrimaryLine
 router.delete('/refresh', async(req,res) => {
     const event = await events.find();
-    let curr_date = new Date();
-    let today = curr_date.toISOString().split('T')[0]
+    let curr_date = new moment();
+    let today = curr_date.format("YYYY-MM-DD")
     var eventlength = Object.keys(event).length;
-    console.log(today);
+
+    var curr_time = new moment();
+    let todaytime = curr_time.format("HH:mm")
+
     try {
         for(let i = 0; i < eventlength; i++) {
-            console.log(event[i].datetimePrimaryLine)
             if (today > event[i].datetimePrimaryLine) {
-                //delete event
-                //const deleted = events.delete(event[i]);
-                //res.send(deleted.datetimePrimaryLine);
-                console.log('yes');
+                if(todaytime > event[i].datetimeSecondaryLine) {
+                    await events.deleteOne({_id:event[i]._id});
+                    console.log(`event (${event[i].title}) has been deleted`);
+                }
+                else {
+                    console.log(`event (${event[i].title}) has not been deleted`);
+                }
             }
             else {
-                console.log('no');
+                console.log(`event (${event[i].title}) has not been deleted`);
             }
         }
+        res.send();
     }
     catch (error) {
         res.status(400).json({message: error.message});
