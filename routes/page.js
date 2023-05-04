@@ -53,13 +53,9 @@ router.get('/get', async(req, res) => {
     const lambdapush = await lambda.find();
     var eventlength = Object.keys(event).length;
     var lambdalength = Object.keys(lambdapush).length;
-
     let todaydate= new Date();
     todaydate=todaydate.toISOString().split('T')[0]
     let calendardate=todaydate;
-
-    
-
     try{
         for(let i = 0; i < eventlength; i++) {
             if (lambdalength == 0) {
@@ -89,8 +85,7 @@ router.get('/get', async(req, res) => {
             });
         }
 
-        data2.content[2].content[0].items = data;
-        data2.content[1].selectedDate=calendardate;
+        data2.content[1].content[0].items = data;
         res.json(data2);
     }
     catch(error){

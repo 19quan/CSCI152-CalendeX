@@ -10,11 +10,6 @@
             "borderColor": "transparent"
         },
         {
-            "elementType": "calendarPicker",
-            "selectedDate": "today",
-            "firstDayOfWeek": 7
-        },
-        {
             "elementType": "container",
             "wrapperStyle": "focal",
             "borderStyle": "solid",
