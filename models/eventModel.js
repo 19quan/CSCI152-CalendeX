@@ -40,7 +40,7 @@ const eventSchema = new mongoose.Schema({
 eventSchema.set('toJSON', {
     virtuals: true,
     versionKey:false,
-    transform: function (doc, ret) { delete ret.id, delete ret._id, delete endDate, delete endTime }
+    transform: function (doc, ret) { delete ret.id, delete ret._id, delete ret.endDate, delete ret.endTime }
 });
 
 module.exports = mongoose.model('Event', eventSchema);
