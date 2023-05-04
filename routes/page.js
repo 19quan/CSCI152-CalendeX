@@ -53,9 +53,13 @@ router.get('/get', async(req, res) => {
     const lambdapush = await lambda.find();
     var eventlength = Object.keys(event).length;
     var lambdalength = Object.keys(lambdapush).length;
+
     let todaydate= new Date();
     todaydate=todaydate.toISOString().split('T')[0]
     let calendardate=todaydate;
+
+    
+
     try{
         for(let i = 0; i < eventlength; i++) {
             if (lambdalength == 0) {
@@ -74,6 +78,17 @@ router.get('/get', async(req, res) => {
                 //console.log('2'); //for debugging
             }
         }
+        
+        for(let i = 0; i < eventlength; i++) {
+            data.sort(function(a,b) {
+                var keyA = a.datetimePrimaryLine,
+                    keyB = b.datetimePrimaryLine;
+                // Compare the 2 dates
+                if (keyA < keyB) return -1;
+                if (keyA > keyB) return 1;
+            });
+        }
+
         data2.content[2].content[0].items = data;
         data2.content[1].selectedDate=calendardate;
         res.json(data2);
