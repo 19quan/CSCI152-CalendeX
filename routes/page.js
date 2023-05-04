@@ -1,5 +1,5 @@
 const express = require('express');
-const moment = require('moment');
+const moment = require('moment-timezone');
 const Model = require('../models/pageModel');
 const events = require('../models/eventModel');
 const lambda = require('../models/lambdaModel');
@@ -12,22 +12,22 @@ const router = express.Router()
 
 module.exports = router;
 
-//TODO: Create a refresh button that gets the current date, then checks the
-//      end date, IF currentdate > enddate then it will delete the stored date
-//      IT WORKS, just needs to use End Dates rather than datetimePrimaryLine
 router.delete('/refresh', async(req,res) => {
     const event = await events.find();
-    let curr_date = new moment();
-    let today = curr_date.format("YYYY-MM-DD")
     var eventlength = Object.keys(event).length;
 
+    let curr_date = new moment();
+    let today = curr_date.format("YYYY-MM-DD")
     var curr_time = new moment();
-    let todaytime = curr_time.format("HH:mm")
+    let todaytime = curr_time.tz('America/Los_Angeles').format("HH:mm")
 
     try {
         for(let i = 0; i < eventlength; i++) {
-            if (today > event[i].datetimePrimaryLine) {
-                if(todaytime > event[i].datetimeSecondaryLine) {
+            console.log(event[i].endDate);
+            console.log(event[i].endTime);
+
+            if (today >= event[i].endDate) {
+                if(todaytime > event[i].endTime) {
                     await events.deleteOne({_id:event[i]._id});
                     console.log(`event (${event[i].title}) has been deleted`);
                 }
