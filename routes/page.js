@@ -52,19 +52,23 @@ router.get('/get', async(req, res) => {
     const lambdapush = await lambda.find();
     var eventlength = Object.keys(event).length;
     var lambdalength = Object.keys(lambdapush).length;
-
+    let todaydate= new Date();
+    todaydate=todaydate.toISOString().split('T')[0]
     try{
         for(let i = 0; i < eventlength; i++) {
             if (lambdalength == 0) {
-                data.push(event[i]);
-                console.log('1'); //for debugging
+                if(event[i].datetimePrimaryLine == todaydate)
+                {
+                    data.push(event[i]);
+                    //console.log('1'); //for debugging
+                }
             }
             else if (lambdalength != 0) {
                 if(event[i].datetimePrimaryLine == lambdapush[lambdalength - 1].date) {
                     data.push(event[i]);
                 }
                 await lambda.deleteMany({});
-                console.log('2'); //for debugging
+                //console.log('2'); //for debugging
             }
         }
         data2.content[1].content[0].items = data;
