@@ -5,6 +5,7 @@ const events = require('../models/eventModel');
 const lambda = require('../models/lambdaModel');
 const fs= require('fs');
 const data2=JSON.parse(fs.readFileSync('template.json','utf-8'));
+const data3=JSON.parse(fs.readFileSync('eventlisttemplate.json','utf-8'));
 //const eventdata=JSON.parse(fs.readFileSync('eventtemplate.json','utf-8'));
 
 
@@ -54,6 +55,7 @@ router.get('/get', async(req, res) => {
     var lambdalength = Object.keys(lambdapush).length;
     let todaydate= new Date();
     todaydate=todaydate.toISOString().split('T')[0]
+    let calendardate=todaydate;
     try{
         for(let i = 0; i < eventlength; i++) {
             if (lambdalength == 0) {
@@ -66,12 +68,14 @@ router.get('/get', async(req, res) => {
             else if (lambdalength != 0) {
                 if(event[i].datetimePrimaryLine == lambdapush[lambdalength - 1].date) {
                     data.push(event[i]);
+                    calendardate=lambdapush[lambdalength-1].date
                 }
                 await lambda.deleteMany({});
                 //console.log('2'); //for debugging
             }
         }
-        data2.content[1].content[0].items = data;
+        data2.content[2].content[0].items = data;
+        data2.content[1].selectedDate=calendardate;
         res.json(data2);
     }
     catch(error){
@@ -80,19 +84,20 @@ router.get('/get', async(req, res) => {
 });
 
 //depreciated functions, kept for reference
-router.get('/get1', async (req, res) => {
-    try{
-        //const data = data2.content[1].content[0].items;
-        var data = [];
-        const event = await events.find();
+router.get('/getallevents', async (req, res) => {
+    //const data = data2.content[1].content[0].items;
+    var data = [];
+    const event = await events.find();
+    var eventlength = Object.keys(event).length;
 
-        for(let i=0; i < Object.keys(event).length; i++)
+    try{
+        for(let i=0; i < eventlength; i++)
         {
             data.push(event[i]);
         }
 
-        data2.content[1].content[0].items = data;
-        res.json(data2);
+        data3.content[1].items = data;
+        res.json(data3);
     }
     catch(error){
         res.status(500).json({message: error.message})

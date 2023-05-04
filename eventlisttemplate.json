@@ -1,0 +1,32 @@
+{
+    "metadata": {
+        "version": "2.0"
+    },
+    "contentContainerWidth": "wide",
+    "content": [
+        
+        {
+            "elementType": "divider",
+            "borderColor": "transparent"
+        },
+        {
+            "elementType": "eventList",
+            "id": "overflow_menus",
+            "showTopBorder": false,
+            "showBottomBorder": false,
+            "descriptionLineClamp": 2,
+            "items": [
+                {
+                    "datetimePrimaryLine": "Mon",
+                    "datetimeSecondaryLine": "Sep 20",
+                    "dividerColor": "theme:focal_border_color",
+                    "title": "No office booked",
+                    "description": "8 in my Circle booked at 100CPD /  123",
+                    "link": {
+                        "relativePath": "./detail_none.json"
+                    }
+                }
+            ]
+        }
+    ]
+}
