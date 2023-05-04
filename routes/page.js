@@ -98,7 +98,6 @@ router.get('/get', async(req, res) => {
     }
 });
 
-//depreciated functions, kept for reference
 router.get('/getallevents', async (req, res) => {
     //const data = data2.content[1].content[0].items;
     var data = [];
@@ -111,6 +110,15 @@ router.get('/getallevents', async (req, res) => {
             data.push(event[i]);
         }
 
+        for(let i = 0; i < eventlength; i++) {
+            data.sort(function(a,b) {
+                var keyA = a.datetimePrimaryLine,
+                    keyB = b.datetimePrimaryLine;
+                // Compare the 2 dates
+                if (keyA < keyB) return -1;
+                if (keyA > keyB) return 1;
+            });
+        }
         data3.content[1].items = data;
         res.json(data3);
     }
@@ -119,6 +127,7 @@ router.get('/getallevents', async (req, res) => {
     }
 });
 
+//depreciated functions, kept for reference
 router.get('/getbyDate/:date', async (req, res) => {
     try{
         //const data = data2.content[1].content[0].items;
